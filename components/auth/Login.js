@@ -1,6 +1,8 @@
 import { View, Text } from "react-native";
-import React, {useState} from "react";
-import firebase from "firebase/compat/app";
+import React, { useState } from "react";
+// import firebase from "firebase/compat/app";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,9 +10,7 @@ const Login = () => {
   const [name, setName] = useState("");
 
   const onLogin = ({ email, password }) => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
       // after data is fetched from the firebase, then gets triggered.
       .then((result) => {
         console.log(result);

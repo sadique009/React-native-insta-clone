@@ -1,22 +1,22 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { View, Button, TextInput } from "react-native";
-import firebase from "firebase/compat/app";
+// import firebase from "firebase/compat/app";
+import { auth } from "../../firebase/config";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
   const onSignUp = ({ email, password, name }) => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       // after data is fetched from the firebase, then gets triggered.
       .then((result) => {
         console.log(result);
       })
-      .catch((error)=>{
+      .catch((error) => {
         console.log(error);
-      })
+      });
   };
 
   return (
@@ -28,13 +28,13 @@ const Register = () => {
 
       <TextInput
         placeholder="email"
-        onChangeText={(email) => setName(email)}
+        onChangeText={(email) => setEmail(email)}
       ></TextInput>
 
       <TextInput
         placeholder="password"
         secureTextEntry
-        onChangeText={(pwd) => setName(pwd)}
+        onChangeText={(pwd) => setPassword(pwd)}
       ></TextInput>
       <Button title="signup" onPress={() => onSignUp()} />
     </View>
